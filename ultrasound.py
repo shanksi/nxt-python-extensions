@@ -14,9 +14,6 @@ pulsetrigger = 0.0001 # Trigger duration in seconds
 timeout = 2100        # Length of time for timeout
 
 def configure(trigger, echo):
-    # set the mode as board
-    GPIO.setmode(GPIO.BOARD)
-
     TRIG = trigger
     ECHO = echo
     GPIO.setup(TRIG, GPIO.OUT)
@@ -68,3 +65,27 @@ def distance_cm():
         return -1
     else:
         return time * (1000000 / 58)
+
+
+if __name__ == "__main__":
+    print "Starting ultrasound test"
+    # Set up the GPIO board
+    GPIO.setmode(GPIO.BOARD)
+
+    # Tell the Pi which pins the ultrasound is on
+    configure(TRIG, ECHO)
+
+    try:
+        while True:
+            distance = distance_cm()
+            if distance < 0:
+                print "Timeout"
+            else:
+                print "Distance = %.0f cm" % (int(round(distance)))
+            time.sleep(2)
+
+    except KeyboardInterrupt:
+        print "Stopping"
+        GPIO.cleanup()
+        
+    
