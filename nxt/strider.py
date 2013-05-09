@@ -28,7 +28,7 @@ back_left = Direction(-1, -1, 1)
 class Strider(object):
 
     def __init__(self, brick='NXT'):
-        r'''Creates a new Alpha Rex controller.
+        r'''Creates a new Strider controller.
         
             brick
                 Either an nxt.brick.Brick object, or an NXT brick's name as a
