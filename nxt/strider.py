@@ -7,6 +7,7 @@ from nxt.sensor import Light, Sound, Touch, Ultrasonic, Color20
 from nxt.sensor import PORT_1, PORT_2, PORT_3, PORT_4
 from nxt.sensor import Type
 
+
 class Direction(object):
     def __init__(self, back, left, right):
         self.directions = [back, left, right]
@@ -14,15 +15,14 @@ class Direction(object):
     def get_directions(self):
         return self.directions
 
-fore = Direction(1, -1, -1)
-back = Direction(-1, 1, 1)
+forewards = Direction(1, -1, -1)
+backwards = Direction(-1, 1, 1)
 
 fore_left = Direction(1, -1, 1)
 back_right = Direction(-1, 1, -1)
 
 fore_right = Direction(1, 1, -1)
 back_left = Direction(-1, -1, 1)
-
 
 
 class Strider(object):
@@ -48,7 +48,7 @@ class Strider(object):
         #self.ultrasonic = Ultrasonic(brick, PORT_4)
         self.colour = Color20(brick, PORT_3)
 
-    def walk(self, direction, time = 0):
+    def walk(self, direction, time=0):
         [back, left, right] = direction.get_directions()
         self.back_leg.run(back * 80)
         self.left_leg.run(left * 80)
@@ -56,8 +56,7 @@ class Strider(object):
         if time > 0:
             sleep(time)
             self.stop()
-            
-        
+
     def show_colour(self, colour):
         self.colour.set_light_color(colour)
 
@@ -66,7 +65,6 @@ class Strider(object):
             self.show_colour(colour)
             sleep(2)
         self.show_colour(Type.COLORNONE)
-        
 
     def stop(self):
         self.back_leg.idle()
@@ -80,9 +78,9 @@ class Strider(object):
 if __name__ == '__main__':
     robot = Strider()
     robot.colour_display()
-    robot.walk(fore, 4)
+    robot.walk(forewards, 4)
     sleep(1)
-    robot.walk(back, 1)
+    robot.walk(backwards, 1)
     robot.walk(fore_right, 3)
     robot.walk(fore_left, 3)
     robot.walk(back_right, 3)
